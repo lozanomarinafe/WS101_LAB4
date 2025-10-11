@@ -1,0 +1,120 @@
+/* --- GENERAL PAGE STYLE --- */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #69bf37, #2575fc);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* --- MAIN TODO CONTAINER --- */
+.todo-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  text-align: center;
+}
+
+.todo-box h2 {
+  color: #333;
+}
+
+/* --- MESSAGE BELOW HEADING --- */
+.message {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* --- INPUT FIELD --- */
+input[type="text"] {
+  width: 90%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+/* --- ADD TASK BUTTON --- */
+#addTaskBtn {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+#addTaskBtn:hover {
+  background: #388e3c;
+}
+
+/* --- TASK LIST --- */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* --- EACH TASK ITEM --- */
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f2f2f2;
+  margin-top: 5px;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.task-text {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+/* --- EDIT & DELETE BUTTONS --- */
+.edit,
+.delete {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+/* Green for Edit */
+.edit {
+  background-color: #8bc34a;
+  color: white;
+}
+
+.edit:hover {
+  background-color: #689f38;
+}
+
+/* Red for Delete */
+.delete {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete:hover {
+  background-color: #d32f2f;
+}
+
+/* --- EDIT INPUT WHEN EDITING A TASK --- */
+.edit-input {
+  padding: 5px;
+  font-size: 14px;
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

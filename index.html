@@ -1,40 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Bank Transaction Analyzer</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Bank Transaction Analyzer</h1>
-  <div class="container">
-    <div class="controls">
-      <select id="filterType">
-        <option value="all">All</option>
-        <option value="deposit">Deposits</option>
-        <option value="withdrawal">Withdrawals</option>
-      </select>
-      <button onclick="calculateBalance()">Total Balance</button>
-      <button onclick="findLargest()">Largest Transaction</button>
-      <button onclick="groupByMonth()">Group by Month</button>
-      <button onclick="fetchTransactions()">Fetch New Transactions</button>
+<div class="todo-container">
+    <div class="todo-box">
+        <h2>To Do App</h2>
+        <p id="message" class="message">Please enter a task.</p>
+        <input type="text" id="taskInput" placeholder="Enter a task..." />
+        <button id="addTaskBtn">Add Task</button>
+        <ul id="taskList"></ul>
     </div>
+</div>
 
-    <table id="transactionTable">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Type</th>
-          <th>Amount</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-
-    <div class="result-box" id="results">Results will appear here...</div>
-  </div>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

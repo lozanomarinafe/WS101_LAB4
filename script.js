@@ -1,81 +1,55 @@
-let transactions = [
-  { id: 1, type: "deposit", amount: 2500, date: "2025-10-01" },
-  { id: 2, type: "dithdrawal", amount: 550, date: "2025-09-15" },
-  { id: 3, type: "deposit", amount: 1200, date: "2025-09-28" },
-  { id: 4, type: "withdrawal", amount: 800, date: "2025-09-10" }
-];
+document.addEventListener("DOMContentLoaded", () => {
+    const addTaskBtn = document.getElementById("addTaskBtn");
+    const taskInput = document.getElementById("taskInput");
+    const taskList = document.getElementById("taskList");
 
-const tbody = document.querySelector("#transactionTable tbody");
-const resultBox = document.getElementById("results");
-const filterDropdown = document.getElementById("filterType");
+    addTaskBtn.addEventListener("click", () => {
+        const taskText = taskInput.value.trim();
+        if (taskText === "") return;
+        addTask(taskText);
+        taskInput.value = "";
+    });
 
-function showTransactions(list) {
-  tbody.innerHTML = list.map(t => `
-    <tr>
-      <td>${t.id}</td>
-      <td>${t.type}</td>
-      <td>₱${t.amount}</td>
-      <td>${t.date}</td>
-    </tr>
-  `).join("");
-}
+    function addTask(text) {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <span class="task-text">${text}</span>
+            <button class="edit">edit</button>
+            <button class="delete">delete</button>
+        `;
+        taskList.appendChild(li);
 
-function calculateBalance() {
-  const balance = transactions.reduce((total, t) => {
-    return total + (t.type === "deposit" ? t.amount : -t.amount);
-  }, 0);
-  resultBox.textContent = `Current Balance: ₱${balance}`;
-}
+        li.querySelector(".edit").addEventListener("click", () => {
+            const taskSpan = li.querySelector(".task-text");
+            const currentText = taskSpan.textContent;
 
-function findLargest() {
-  if (transactions.length === 0) {
-    resultBox.textContent = "No transactions available.";
-    return;
-  }
-  const largest = [...transactions].sort((a, b) => b.amount - a.amount)[0];
-  resultBox.textContent = `Largest Transaction: ${largest.type} ₱${largest.amount} (${largest.date})`;
-}
+            // Create an input field for editing
+            const editInput = document.createElement("input");
+            editInput.type = "text";
+            editInput.value = currentText;
+            editInput.classList.add("edit-input");
 
+            // Replace text with input
+            li.insertBefore(editInput, taskSpan);
+            taskSpan.style.display = "none";
+            editInput.focus();
 
-function groupByMonth() {
-  const groups = transactions.reduce((acc, t) => {
-    const month = t.date.substring(0, 7); 
-    acc[month] = acc[month] || [];
-    acc[month].push(t);
-    return acc;
-  }, {});
-  
-  let summary = "Transactions by Month:\n";
-  for (let m in groups) {
-    summary += `${m}: ${groups[m].length} transaction(s)\n`;
-  }
-  resultBox.textContent = summary;
-}
+            // Save on Enter or blur
+            editInput.addEventListener("blur", saveEdit);
+            editInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") saveEdit();
+            });
 
-filterDropdown.addEventListener("change", () => {
-  const value = filterDropdown.value;
-  if (value === "all") {
-    showTransactions(transactions);
-  } else {
-    showTransactions(transactions.filter(t => t.type === value));
-  }
+            function saveEdit() {
+                const newText = editInput.value.trim();
+                if (newText !== "") taskSpan.textContent = newText;
+                taskSpan.style.display = "inline";
+                li.removeChild(editInput);
+            }
+        });
+
+        li.querySelector(".delete").addEventListener("click", () => {
+            li.remove();
+        });
+    }
 });
-
-function fetchTransactions() {
-  resultBox.textContent = "Fetching new data...";
-  
-  setTimeout(() => {
-    const newTransaction = {
-      id: transactions.length + 1,
-      type: Math.random() > 0.5 ? "deposit" : "withdrawal",
-      amount: Math.floor(Math.random() * 3000) + 100,
-      date: `2025-10-${String(Math.floor(Math.random() * 28) + 1).padStart(2, "0")}`
-    };
-    
-    transactions.push(newTransaction);
-    showTransactions(transactions);
-    resultBox.textContent = "New transaction added!";
-  }, 1200);
-}
-
-showTransactions(transactions);
